@@ -1,0 +1,167 @@
+CREATE TABLE usuario (
+	codigo serial not null,
+	login varchar(50) NOT NULL, 
+	senha varchar(50),
+	acesso integer not null
+);
+create table fichatreino (
+	codigo serial not null,
+	idaluno integer not null,
+	iddia integer not null,
+	idhora integer not null,
+	idprofessor integer not null,
+	idmodalidade integer not null,
+	exercicio varchar(50),
+	repeticoes integer
+);
+create table modalidade (
+	codigo serial not null,
+	tipo varchar not null,
+	limite integer
+);
+create table hora (
+	codigo serial not null,
+	hora varchar not null
+);
+create table dia (
+	codigo serial not null,
+	dia varchar(20) not null
+);
+create table turma (
+	codigo serial not null,
+	idmodalidade integer not null,
+	idhora integer not null,
+	quantidadesegunda integer,
+	quantidadeterca integer,
+	quantidadequarta integer,
+	quantidadequinta integer,
+	quantidadesexta integer
+);
+create table cartao (
+	codigo serial not null,
+	numero varchar(19) not null,
+	validade varchar(5) not null,
+	codcartao integer not null,
+	nome varchar(50) not null,
+	bandeira varchar(20) not null
+);
+create table aluno (
+	codigo serial not null,
+	nome varchar(100) not null,
+	cpf varchar(14),
+	identidade varchar(15),
+	datanascimento date,
+	idcartao integer,
+	idmatricula integer,
+	pagamentomensal decimal,
+	idtaf integer,
+	idusuario integer
+);
+create table plano (
+	codigo serial not null,
+	idmodalidade integer not null,
+	tipo varchar(20) not null,
+	quantidade integer not null,
+	valormensal decimal not null
+);
+create table matricula (
+	codigo serial not null,
+	idaluno integer,
+	idplano integer
+);
+create table professor (
+	codigo serial not null,
+	nome varchar (100) not null,
+	cpf varchar(14),
+	datanascimento date,
+	idusuario integer
+);
+create table taf (
+	codigo serial not null,
+	idmedico integer not null,
+	ausculta varchar(50),
+	afericaopressao varchar(10),
+	idanamnese integer,
+	peso decimal,
+	altura decimal,
+	percentualgordura decimal,
+	massamagra decimal,
+	imc decimal,
+	apto boolean
+);
+create table anamnese (
+	codigo serial not null,
+	idaluno integer,
+	idmedico integer,
+	questao1 integer,
+	questao2 integer,
+	questao3 integer,
+	questao4 integer,
+	questao5 integer,
+	questao6 integer,
+	questao7 integer,
+	questao8 integer,
+	questao9 integer,
+	questao10 integer
+);
+create table medico (
+	codigo serial not null,
+	nome varchar(100) not null,
+	cpf varchar(14),
+	idusuario integer
+	
+);
+create table secretaria (
+	codigo serial not null,
+	nome varchar(100) not null,
+	cpf varchar(14),
+	idusuario integer
+);
+
+insert into modalidade (tipo) values('Musculação');
+insert into modalidade (tipo, limite) values('Natação', 6);
+insert into modalidade (tipo, limite) values('Crossfit', 30);
+insert into modalidade (tipo, limite) values('Ritmos', 30);
+insert into modalidade (tipo, limite) values('Spinning', 20);
+insert into hora (hora) values('06:30');
+insert into hora (hora) values('07:00');
+insert into hora (hora) values('07:30');
+insert into hora (hora) values('08:00');
+insert into hora (hora) values('08:30');
+insert into hora (hora) values('09:00');
+insert into hora (hora) values('09:30');
+insert into hora (hora) values('10:00');
+insert into hora (hora) values('10:15');
+insert into hora (hora) values('11:00');
+insert into hora (hora) values('12:00');
+insert into hora (hora) values('16:00');
+insert into hora (hora) values('16:50');
+insert into hora (hora) values('17:00');
+insert into hora (hora) values('18:00');
+insert into hora (hora) values('18:30');
+insert into hora (hora) values('19:00');
+insert into hora (hora) values('19:30');
+insert into hora (hora) values('20:00');
+insert into dia (dia) values('Segunda');
+insert into dia (dia) values('Terça');
+insert into dia (dia) values('Quarta');
+insert into dia (dia) values('Quinta');
+insert into dia (dia) values('Sexta');
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(2, 'Mensal', 2, 215);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(2, 'Mensal', 3, 229);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(2, 'Semestral', 2, 193.50);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(2, 'Semestral', 3, 206.10);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(2, 'Anual', 2, 182.75);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(2, 'Anual', 3, 189);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(1, 'Mensal', 7, 125);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(1, 'Semestral', 7, 112.5);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(1, 'Anual', 7, 106.25);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(3, 'Mensal', 3, 155);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(3, 'Semestral', 3, 139);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(3, 'Anual', 3, 130);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(4, 'Mensal', 3, 155);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(4, 'Semestral', 3, 139);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(4, 'Anual', 3, 130);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(5, 'Mensal', 3, 155);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(5, 'Semestral', 3, 139);
+insert into plano (idmodalidade, tipo, quantidade, valormensal) values(5, 'Anual', 3, 130);
