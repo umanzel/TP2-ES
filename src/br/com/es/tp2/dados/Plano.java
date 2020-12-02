@@ -11,18 +11,18 @@ package br.com.es.tp2.dados;
  */
 public class Plano {
     private int codigo;
-    private int idmodalidade;
+    private int idaluno;
     private String tipo;
     private int quantidade;
-    private int valormensal;
+    private double valormensal;
 
     public Plano() {
         this.codigo = 0;
     }
 
-    public Plano(int codigo, int idmodalidade, String tipo, int quantidade, int valormensal) {
+    public Plano(int codigo, int idaluno, String tipo, int quantidade, double valormensal) {
         this.codigo = codigo;
-        this.idmodalidade = idmodalidade;
+        this.idaluno = idaluno;
         this.tipo = tipo;
         this.quantidade = quantidade;
         this.valormensal = valormensal;
@@ -36,12 +36,12 @@ public class Plano {
         this.codigo = codigo;
     }
 
-    public int getIdmodalidade() {
-        return idmodalidade;
+    public int getIdaluno() {
+        return idaluno;
     }
 
-    public void setIdmodalidade(int idmodalidade) {
-        this.idmodalidade = idmodalidade;
+    public void setIdaluno(int idaluno) {
+        this.idaluno = idaluno;
     }
 
     public String getTipo() {
@@ -60,11 +60,11 @@ public class Plano {
         this.quantidade = quantidade;
     }
 
-    public int getValormensal() {
+    public double getValormensal() {
         return valormensal;
     }
 
-    public void setValormensal(int valormensal) {
+    public void setValormensal(double valormensal) {
         this.valormensal = valormensal;
     }
     

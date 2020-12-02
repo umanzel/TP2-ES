@@ -19,13 +19,13 @@ public class Menu {
     }
     
     public void exibirMenu(){
-        if(user.getAcesso() == 1){
+        if(user.getPerfil()== 1){
             System.out.println("1. Ver ficha de treino");
             System.out.println("2. Ver ficha TAF");
             System.out.println("\n0. Sair");
             System.out.print("\n\nDigite a opção desejada: ");
         }
-        else if(user.getAcesso() == 2){
+        else if(user.getPerfil()== 2){
             System.out.println("1. Mostrar planos");
             System.out.println("2. Matricular aluno");
             System.out.println("\n0. Sair");

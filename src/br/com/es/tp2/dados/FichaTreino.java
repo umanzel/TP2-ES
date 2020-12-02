@@ -5,33 +5,28 @@
  */
 package br.com.es.tp2.dados;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Xtrem
  */
 public class FichaTreino {
     private int codigo;
-    private Aluno aluno;
-    private int iddia;
-    private int idhora;
-    private int idprofessor;
-    private int idmodalidade;
-    private String exercicio;
-    private int repeticoes;
+    private int idMatriculaAluno;
+    private List<Exercicio> exercicios;
+    
 
     public FichaTreino() {
         this.codigo = 0;
+        this.exercicios = new ArrayList<>();
     }
 
-    public FichaTreino(int codigo, Aluno aluno, int iddia, int idhora, int idprofessor, int idmodalidade, String exercicio, int repeticoes) {
+    public FichaTreino(int codigo, int idMatriculaAluno, List<Exercicio> exercicios) {
         this.codigo = codigo;
-        this.aluno = aluno;
-        this.iddia = iddia;
-        this.idhora = idhora;
-        this.idprofessor = idprofessor;
-        this.idmodalidade = idmodalidade;
-        this.exercicio = exercicio;
-        this.repeticoes = repeticoes;
+        this.idMatriculaAluno = idMatriculaAluno;
+        this.exercicios = exercicios;
     }
 
     public int getCodigo() {
@@ -42,62 +37,24 @@ public class FichaTreino {
         this.codigo = codigo;
     }
 
-    public Aluno getAluno() {
-        return aluno;
+    public int getIdMatriculaAluno() {
+        return idMatriculaAluno;
     }
 
-    public void setAluno(Aluno idaluno) {
-        this.aluno = idaluno;
+    public void setIdMatriculaAluno(int idMatriculaAluno) {
+        this.idMatriculaAluno = idMatriculaAluno;
     }
 
-    public int getIddia() {
-        return iddia;
+    public List<Exercicio> getExercicios() {
+        return exercicios;
     }
 
-    public void setIddia(int iddia) {
-        this.iddia = iddia;
+    public void setExercicios(List<Exercicio> exercicios) {
+        this.exercicios = exercicios;
     }
-
-    public int getIdhora() {
-        return idhora;
-    }
-
-    public void setIdhora(int idhora) {
-        this.idhora = idhora;
-    }
-
-    public int getIdprofessor() {
-        return idprofessor;
-    }
-
-    public void setIdprofessor(int idprofessor) {
-        this.idprofessor = idprofessor;
-    }
-
-    public int getIdmodalidade() {
-        return idmodalidade;
-    }
-
-    public void setIdmodalidade(int idmodalidade) {
-        this.idmodalidade = idmodalidade;
-    }
-
-    public String getExercicio() {
-        return exercicio;
-    }
-
-    public void setExercicio(String exercicio) {
-        this.exercicio = exercicio;
-    }
-
-    public int getRepeticoes() {
-        return repeticoes;
-    }
-
-    public void setRepeticoes(int repeticoes) {
-        this.repeticoes = repeticoes;
-    }
-
     
+    public void addExercicio(Exercicio excercicio) {
+        this.exercicios.add(excercicio);
+    }
     
 }

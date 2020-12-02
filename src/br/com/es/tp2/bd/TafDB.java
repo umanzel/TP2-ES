@@ -13,6 +13,14 @@ import java.util.ArrayList;
  *
  * @author Xtrem
  */
+
+/*private int codigo;
+    private int idmedico;
+    private String ausculta;
+    private String afericaopressao;
+    private ExameAptidao exameAptidao;
+    private Anamnese anamnese;
+    private boolean apto;*/
 public class TafDB implements DB<TAF>{
 
     @Override
@@ -23,12 +31,12 @@ public class TafDB implements DB<TAF>{
         ps.setInt(1, taf.getIdmedico());
         ps.setString(2, taf.getAusculta());
         ps.setString(3, taf.getAfericaopressao());
-        ps.setInt(4, taf.getIdanamnese().getCodigo());
-        ps.setDouble(5, taf.getPeso());
-        ps.setDouble(6, taf.getAltura());
-        ps.setDouble(7, taf.getPercentualgordura());
-        ps.setDouble(8, taf.getMassamagra());
-        ps.setDouble(9, taf.getImc());
+        ps.setInt(4, taf.getAnamnese().getCodigo());
+        ps.setDouble(5, taf.getExameAptidao().getPeso());
+        ps.setDouble(6, taf.getExameAptidao().getAltura());
+        ps.setDouble(7, taf.getExameAptidao().getPercentualgordura());
+        ps.setDouble(8, taf.getExameAptidao().getMassamagra());
+        ps.setDouble(9, taf.getExameAptidao().getImc());
         ps.setBoolean(10, taf.isApto());
         ps.execute();
         c.confirmar();
@@ -42,12 +50,12 @@ public class TafDB implements DB<TAF>{
         ps.setInt(1, taf.getIdmedico());
         ps.setString(2, taf.getAusculta());
         ps.setString(3, taf.getAfericaopressao());
-        ps.setInt(4, taf.getIdanamnese().getCodigo());
-        ps.setDouble(5, taf.getPeso());
-        ps.setDouble(6, taf.getAltura());
-        ps.setDouble(7, taf.getPercentualgordura());
-        ps.setDouble(8, taf.getMassamagra());
-        ps.setDouble(9, taf.getImc());
+        ps.setInt(4, taf.getAnamnese().getCodigo());
+        ps.setDouble(5, taf.getExameAptidao().getPeso());
+        ps.setDouble(6, taf.getExameAptidao().getAltura());
+        ps.setDouble(7, taf.getExameAptidao().getPercentualgordura());
+        ps.setDouble(8, taf.getExameAptidao().getMassamagra());
+        ps.setDouble(9, taf.getExameAptidao().getImc());
         ps.setBoolean(10, taf.isApto());
         ps.setInt(11, taf.getCodigo());
         ps.execute();

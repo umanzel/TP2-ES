@@ -37,10 +37,15 @@ public class Login {
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
-            user.setLogin(rs.getString("login"));
-            user.setSenha(rs.getString("senha"));
-            user.setAcesso(rs.getInt("acesso"));
-            return user.getAcesso();
+            user.setLogin(rs.getString("LOGIN"));
+            user.setSenha(rs.getString("SENHA"));
+            user.setPerfil(rs.getInt("PERFIL"));
+            user.setNome(rs.getString("NOME"));
+            user.setCpf(rs.getString("CPF"));
+            user.setEndereco(rs.getString("ENDERECO"));
+            user.setTelefone(rs.getString("TELEFONE"));
+            user.setEmail(rs.getString("EMAIL"));
+            return user.getPerfil();
         } else {
             return 0;
         }

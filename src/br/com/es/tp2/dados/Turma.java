@@ -10,92 +10,76 @@ package br.com.es.tp2.dados;
  * @author Xtrem
  */
 public class Turma {
-    private int codigo;
-    private int idmodalidade;
-    private int idhora;
-    private int segunda;
-    private int terca;
-    private int quarta;
-    private int quinta;
-    private int sexta;
+    private String idTurma;
+    private int capacidade;
+    private int quantidadeMatriculados;
+    private String modalidade;
+    private String dia;
+    private String hora;
 
-    public Turma() {
-        this.codigo = 0;
+    public Turma(String idTurma, int capacidade, int quantidadeMatriculados, String modalidade, String dia, String hora) {
+        this.idTurma = idTurma;
+        this.capacidade = capacidade;
+        this.quantidadeMatriculados = quantidadeMatriculados;
+        this.modalidade = modalidade;
+        this.dia = dia;
+        this.hora = hora;
     }
 
-    public Turma(int codigo, int idmodalidade, int idhora, int segunda, int terca, int quarta, int quinta, int sexta) {
-        this.codigo = codigo;
-        this.idmodalidade = idmodalidade;
-        this.idhora = idhora;
-        this.segunda = segunda;
-        this.terca = terca;
-        this.quarta = quarta;
-        this.quinta = quinta;
-        this.sexta = sexta;
+    public String getIdTurma() {
+        return idTurma;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public void setIdTurma(String idTurma) {
+        this.idTurma = idTurma;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public int getCapacidade() {
+        return capacidade;
     }
 
-    public int getIdmodalidade() {
-        return idmodalidade;
+    public void setCapacidade(int capacidade) {
+        this.capacidade = capacidade;
     }
 
-    public void setIdmodalidade(int idmodalidade) {
-        this.idmodalidade = idmodalidade;
+    public int getQuantidadeMatriculados() {
+        return quantidadeMatriculados;
     }
 
-    public int getIdhora() {
-        return idhora;
+    public void setQuantidadeMatriculados(int quantidadeMatriculados) {
+        this.quantidadeMatriculados = quantidadeMatriculados;
     }
 
-    public void setIdhora(int idhora) {
-        this.idhora = idhora;
+    public String getModalidade() {
+        return modalidade;
     }
 
-    public int getSegunda() {
-        return segunda;
+    public void setModalidade(String modalidade) {
+        this.modalidade = modalidade;
     }
 
-    public void setSegunda(int segunda) {
-        this.segunda = segunda;
+    public String getDia() {
+        return dia;
     }
 
-    public int getTerca() {
-        return terca;
+    public void setDia(String dia) {
+        this.dia = dia;
     }
 
-    public void setTerca(int terca) {
-        this.terca = terca;
+    public String getHora() {
+        return hora;
     }
 
-    public int getQuarta() {
-        return quarta;
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
-    public void setQuarta(int quarta) {
-        this.quarta = quarta;
-    }
-
-    public int getQuinta() {
-        return quinta;
-    }
-
-    public void setQuinta(int quinta) {
-        this.quinta = quinta;
-    }
-
-    public int getSexta() {
-        return sexta;
-    }
-
-    public void setSexta(int sexta) {
-        this.sexta = sexta;
+    public boolean verificarDisponibilidade(){
+        if((this.capacidade - this.quantidadeMatriculados) > 0){
+            return true;
+        }
+        else
+            return false;
     }
     
     

@@ -14,29 +14,21 @@ public class TAF {
     private int idmedico;
     private String ausculta;
     private String afericaopressao;
-    private Anamnese idanamnese;
-    private Double peso;
-    private Double altura;
-    private Double percentualgordura;
-    private Double massamagra;
-    private Double imc;
+    private ExameAptidao exameAptidao;
+    private Anamnese anamnese;
     private boolean apto;
 
     public TAF() {
         this.codigo = 0;
     }
 
-    public TAF(int codigo, int idmedico, String ausculta, String afericaopressao, Anamnese idanamnese, Double peso, Double altura, Double percentualgordura, Double massamagra, Double imc, boolean apto) {
+    public TAF(int codigo, int idmedico, String ausculta, String afericaopressao, ExameAptidao exameAptidao, Anamnese anamnese, boolean apto) {
         this.codigo = codigo;
         this.idmedico = idmedico;
         this.ausculta = ausculta;
         this.afericaopressao = afericaopressao;
-        this.idanamnese = idanamnese;
-        this.peso = peso;
-        this.altura = altura;
-        this.percentualgordura = percentualgordura;
-        this.massamagra = massamagra;
-        this.imc = imc;
+        this.exameAptidao = exameAptidao;
+        this.anamnese = anamnese;
         this.apto = apto;
     }
 
@@ -72,52 +64,20 @@ public class TAF {
         this.afericaopressao = afericaopressao;
     }
 
-    public Anamnese getIdanamnese() {
-        return idanamnese;
+    public ExameAptidao getExameAptidao() {
+        return exameAptidao;
     }
 
-    public void setIdanamnese(Anamnese idanamnese) {
-        this.idanamnese = idanamnese;
+    public void setExameAptidao(ExameAptidao exameAptidao) {
+        this.exameAptidao = exameAptidao;
     }
 
-    public Double getPeso() {
-        return peso;
+    public Anamnese getAnamnese() {
+        return anamnese;
     }
 
-    public void setPeso(Double peso) {
-        this.peso = peso;
-    }
-
-    public Double getAltura() {
-        return altura;
-    }
-
-    public void setAltura(Double altura) {
-        this.altura = altura;
-    }
-
-    public Double getPercentualgordura() {
-        return percentualgordura;
-    }
-
-    public void setPercentualgordura(Double percentualgordura) {
-        this.percentualgordura = percentualgordura;
-    }
-
-    public Double getMassamagra() {
-        return massamagra;
-    }
-
-    public void setMassamagra(Double massamagra) {
-        this.massamagra = massamagra;
-    }
-
-    public Double getImc() {
-        return this.peso / this.altura;
-    }
-
-    public void setImc(Double imc) {
-        this.imc = imc;
+    public void setAnamnese(Anamnese anamnese) {
+        this.anamnese = anamnese;
     }
 
     public boolean isApto() {

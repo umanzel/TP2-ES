@@ -7,6 +7,7 @@ package br.com.es.tp2.bd;
 
 import br.com.es.tp2.dados.Aluno;
 import br.com.es.tp2.dados.FichaTreino;
+import br.com.es.tp2.dados.Plano;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,87 +22,75 @@ public class AlunoDB implements DB<Aluno> {
     @Override
     public void inserir(Aluno aluno) throws Exception {
         Conexao c = new Conexao();
-        String sql = "INSERT INTO ALUNO (NOME, CPF, IDENTIDADE, DATANASCIMENTO, IDCARTAO, IDMATRICULA, PAGAMENTOMENSAL, IDTAF, IDUSUARIO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ALUNO (IDENTIDADE, DATANASCIMENTO, IDFICHA, IDCARTAO, IDTAF, IDANAMNESE, IDUSUARIO) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = c.getConexao().prepareStatement(sql);
-        ps.setString(1, aluno.getNome());
-        ps.setString(2, aluno.getCpf());
-        ps.setString(3, aluno.getIdentidade());
-        ps.setDate(4, new Date(aluno.getDatanascimento().getTime()));
-        ps.setInt(5, aluno.getIdcartao());
-        ps.setInt(6, aluno.getMatricula());
-        ps.setDouble(7, aluno.getPagamentomensal());
-        ps.setInt(8, aluno.getIdtaf());
-        ps.setInt(9, aluno.getIdusuario());
+        ps.setString(1, aluno.getIdentidade());
+        ps.setDate(2, new Date(aluno.getDatanascimento().getTime()));
+        ps.setInt(3, aluno.getFichatreino().getCodigo());
+        ps.setInt(4, aluno.getCartao().getCodigo());
+        ps.setInt(5, aluno.getTAF().getCodigo());
+        ps.setInt(6, aluno.getAnamnese().getCodigo());
+        ps.setInt(7, aluno.getIdusuario());
         ps.execute();
 
         ResultSet rs = ps.getGeneratedKeys();
         rs.next();
         int idAluno = rs.getInt(1);
 
-        for (FichaTreino ft : aluno.getFichatreino()) {
-            sql = "INSERT INTO FICHATREINO (IDALUNO, IDDIA, IDHORA, IDPROFESSOR, IDMODALIDADE, EXERCICIO, REPETICOES) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        for (Plano pl : aluno.getPlanos()) {
+            sql = "INSERT INTO PLANO (IDALUNO, TIPO, QUANTIDADE, VALORMENSAL) VALUES (?, ?, ?, ?)";
             ps = c.getConexao().prepareStatement(sql);
             ps.setInt(1, idAluno);
-            ps.setInt(2, ft.getIddia());
-            ps.setInt(3, ft.getIdhora());
-            ps.setInt(4, ft.getIdprofessor());
-            ps.setInt(5, ft.getIdmodalidade());
-            ps.setString(6, ft.getExercicio());
-            ps.setInt(7, ft.getRepeticoes());
+            ps.setString(2, pl.getTipo());
+            ps.setInt(3, pl.getQuantidade());
+            ps.setDouble(4, pl.getValormensal());
             ps.execute();
         }
+
         c.confirmar();
     }
 
     @Override
     public void alterar(Aluno aluno) throws Exception {
         Conexao c = new Conexao();
-        String sql = "UPDATE ALUNO SET NOME=?, CPF=?, IDENTIDADE=?, DATANASCIMENTO=?, IDCARTAO=?, IDMATRICULA=?, PAGAMENTOMENSAL=?, IDTAF=?, IDUSUARIO=? WHERE CODIGO=?";
+        String sql = "UPDATE ALUNO SET IDENTIDADE=?, DATANASCIMENTO=?, IDFICHA=?, IDCARTAO=?, IDTAF=?, IDANAMNESE=?, IDUSUARIO=? WHERE CODIGO=?";
         PreparedStatement ps = c.getConexao().prepareStatement(sql);
-        ps.setString(1, aluno.getNome());
-        ps.setString(2, aluno.getCpf());
-        ps.setString(3, aluno.getIdentidade());
-        ps.setDate(4, new Date(aluno.getDatanascimento().getTime()));
-        ps.setInt(5, aluno.getIdcartao());
-        ps.setInt(6, aluno.getMatricula());
-        ps.setDouble(7, aluno.getPagamentomensal());
-        ps.setInt(8, aluno.getIdtaf());
-        ps.setInt(9, aluno.getIdusuario());
-        ps.setInt(10, aluno.getCodigo());
+        ps.setString(1, aluno.getIdentidade());
+        ps.setDate(2, new Date(aluno.getDatanascimento().getTime()));
+        ps.setInt(3, aluno.getFichatreino().getCodigo());
+        ps.setInt(4, aluno.getCartao().getCodigo());
+        ps.setInt(5, aluno.getTAF().getCodigo());
+        ps.setInt(6, aluno.getAnamnese().getCodigo());
+        ps.setInt(7, aluno.getIdusuario());
+        ps.setInt(8, aluno.getCodigo());
         ps.execute();
 
-        for (FichaTreino ft : aluno.getRemoverFichaTreino()) {
-            sql = "DELETE FROM FICHATREINO WHERE CODIGO=?";
+        for (Plano pl : aluno.getRemoverPlano()) {
+            sql = "DELETE FROM PLANO WHERE CODIGO=?";
             ps = c.getConexao().prepareStatement(sql);
-            ps.setInt(1, ft.getCodigo());
+            ps.setInt(1, pl.getCodigo());
             ps.execute();
         }
-
-        for (FichaTreino ft : aluno.getFichatreino()) {
-            if (ft.getCodigo() == 0) {
-                sql = "INSERT INTO FICHATREINO (IDALUNO, IDDIA, IDHORA, IDPROFESSOR, IDMODALIDADE, EXERCICIO, REPETICOES) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        for (Plano pl : aluno.getPlanos()) {
+            if (pl.getCodigo() == 0) {
+                sql = "INSERT INTO PLANO (IDALUNO, TIPO, QUANTIDADE, VALORMENSAL) VALUES (?, ?, ?, ?)";
                 ps = c.getConexao().prepareStatement(sql);
-                ps.setInt(1, ft.getAluno().getCodigo());
-                ps.setInt(2, ft.getIddia());
-                ps.setInt(3, ft.getIdhora());
-                ps.setInt(4, ft.getIdprofessor());
-                ps.setInt(5, ft.getIdmodalidade());
-                ps.setString(6, ft.getExercicio());
-                ps.setInt(7, ft.getRepeticoes());
+                ps.setInt(1, aluno.getCodigo());
+                ps.setString(2, pl.getTipo());
+                ps.setInt(3, pl.getQuantidade());
+                ps.setDouble(4, pl.getValormensal());
                 ps.execute();
             } else {
-                sql = "UPDATE FICHATREINO SET IDALUNO=?, IDDIA=?, IDHORA=?, IDPROFESSOR=?, IDMODALIDADE=?, EXERCICIO=?, REPETICOES=? WHERE CODIGO=?)";
+                sql = "UPDATE PLANO SET IDALUNO=?, TIPO=?, QUANTIDADE=?, VALORMENSAL=? WHERE CODIGO=?";
                 ps = c.getConexao().prepareStatement(sql);
-                ps.setInt(1, ft.getAluno().getCodigo());
-                ps.setInt(2, ft.getIddia());
-                ps.setInt(3, ft.getIdhora());
-                ps.setInt(4, ft.getIdprofessor());
-                ps.setInt(5, ft.getIdmodalidade());
-                ps.setString(6, ft.getExercicio());
-                ps.setInt(7, ft.getRepeticoes());
-                ps.setInt(8, ft.getCodigo());
+                ps.setInt(1, aluno.getCodigo());
+                ps.setString(2, pl.getTipo());
+                ps.setInt(3, pl.getQuantidade());
+                ps.setDouble(4, pl.getValormensal());
+                ps.setInt(5, pl.getCodigo());
                 ps.execute();
             }
+
         }
         c.confirmar();
     }
@@ -115,6 +104,17 @@ public class AlunoDB implements DB<Aluno> {
         ps.execute();
         c.confirmar();
     }
+//private int matricula;
+//    private String identidade;
+//    private java.util.Date datanascimento;
+//    private FichaTreino fichatreino;
+//    private List<Plano> planos;
+//    private List<Plano> removerPlano;
+//    private double pagamentoMensal;
+//    private Cartao cartao;
+//    private TAF taf;
+//    private Anamnese anamnese;
+//    private int idusuario;
 
     @Override
     public ArrayList<Aluno> listarTodos() throws Exception {
@@ -127,33 +127,47 @@ public class AlunoDB implements DB<Aluno> {
         ArrayList listaAlunos = new ArrayList();
         while (rs.next()) {
             Aluno aluno = new Aluno();
-            aluno.setCodigo(rs.getInt("CODIGO"));
-            aluno.setNome(rs.getString("NOME"));
-            aluno.setCpf(rs.getString("CPF"));
+            aluno.setMatricula(rs.getInt("MATRICULA"));
             aluno.setIdentidade(rs.getString("IDENTIDADE"));
             aluno.setDatanascimento(rs.getDate("DATANASCIMENTO"));
-            aluno.setIdcartao(rs.getInt("IDCARTAO"));
-            aluno.setMatricula(rs.getInt("IDMATRICULA"));
-            aluno.setPagamentomensal(rs.getDouble("PAGAMENTOMENSAL"));
-            aluno.setIdtaf(rs.getInt("IDTAF"));
+            aluno.setPagamentoMensal(rs.getDouble("PAGAMENTOMENSAL"));
             aluno.setIdusuario(rs.getInt("IDUSUARIO"));
 
             String sqlFicha = "SELECT * FROM FICHATREINO WHERE IDALUNO=?";
+            String sqlExercicio = "SELECT * FROM EXERCICIO";
+
             PreparedStatement psFicha = c.getConexao().prepareStatement(sqlFicha);
+            PreparedStatement psExercicio = c.getConexao().prepareStatement(sqlExercicio);
+
             psFicha.setInt(1, aluno.getCodigo());
+//            psExercicio.setInt(1, ft.getCodigo());
+
             ResultSet rsFicha = psFicha.executeQuery();
+            ResultSet rsExercicio = psExercicio.executeQuery();
 
             while (rsFicha.next()) {
                 FichaTreino ft = new FichaTreino();
                 ft.setCodigo(rsFicha.getInt("CODIGO"));
-                ft.setAluno(aluno);
-                ft.setIddia(rs.getInt("IDDIA"));
-                ft.setIdhora(rs.getInt("IDHORA"));
-                ft.setIdprofessor(rs.getInt("IDPROFESSOR"));
-                ft.setIdmodalidade(rs.getInt("IDMODALIDADE"));
-                ft.setExercicio(rs.getString("EXERCICIO"));
-                ft.setRepeticoes(rs.getInt("REPETICOES"));
-                aluno.addFicha(ft);
+                while (rsExercicio.next()) {
+                    if (rsExercicio.getInt("IDFICHA") == ft.getCodigo()) {
+
+                    }
+                }
+            }
+
+            String sqlPlano = "SELECT * FROM PLANO WHERE CODIGO=?";
+            PreparedStatement psPlano = c.getConexao().prepareStatement(sqlPlano);
+            psPlano.setInt(1, aluno.getCodigo());
+            ResultSet rsPlano = psPlano.executeQuery();
+
+            while (rsPlano.next()) {
+                Plano pl = new Plano();
+                pl.setCodigo(rs.getInt("CODIGO"));
+                pl.setIdaluno(aluno.getCodigo());
+                pl.setTipo(rs.getString("TIPO"));
+                pl.setQuantidade(rs.getInt("QUANTIDADE"));
+                pl.setValormensal(rs.getDouble("VALORMENSAL"));
+                aluno.addPlano(pl);
             }
 
             listaAlunos.add(aluno);
@@ -166,44 +180,119 @@ public class AlunoDB implements DB<Aluno> {
     public Aluno recuperar(int codigo) throws Exception {
         Conexao c = new Conexao();
 
-        String sql = "SELECT * FROM ALUNO WHERE CODIGO=?";
+        String sql = "SELECT * FROM ALUNO ORDER BY NOME";
         PreparedStatement ps = c.getConexao().prepareStatement(sql);
-        ps.setInt(1, codigo);
         ResultSet rs = ps.executeQuery();
 
         Aluno aluno = new Aluno();
-
         while (rs.next()) {
-            aluno.setCodigo(rs.getInt("CODIGO"));
-            aluno.setNome(rs.getString("NOME"));
-            aluno.setCpf(rs.getString("CPF"));
+            aluno.setMatricula(rs.getInt("MATRICULA"));
             aluno.setIdentidade(rs.getString("IDENTIDADE"));
             aluno.setDatanascimento(rs.getDate("DATANASCIMENTO"));
-            aluno.setIdcartao(rs.getInt("IDCARTAO"));
-            aluno.setMatricula(rs.getInt("IDMATRICULA"));
-            aluno.setPagamentomensal(rs.getDouble("PAGAMENTOMENSAL"));
-            aluno.setIdtaf(rs.getInt("IDTAF"));
+            aluno.setPagamentoMensal(rs.getDouble("PAGAMENTOMENSAL"));
             aluno.setIdusuario(rs.getInt("IDUSUARIO"));
 
             String sqlFicha = "SELECT * FROM FICHATREINO WHERE IDALUNO=?";
+            String sqlExercicio = "SELECT * FROM EXERCICIO";
+
             PreparedStatement psFicha = c.getConexao().prepareStatement(sqlFicha);
+            PreparedStatement psExercicio = c.getConexao().prepareStatement(sqlExercicio);
+
             psFicha.setInt(1, aluno.getCodigo());
+//            psExercicio.setInt(1, ft.getCodigo());
+
             ResultSet rsFicha = psFicha.executeQuery();
+            ResultSet rsExercicio = psExercicio.executeQuery();
 
             while (rsFicha.next()) {
                 FichaTreino ft = new FichaTreino();
                 ft.setCodigo(rsFicha.getInt("CODIGO"));
-                ft.setAluno(aluno);
-                ft.setIddia(rs.getInt("IDDIA"));
-                ft.setIdhora(rs.getInt("IDHORA"));
-                ft.setIdprofessor(rs.getInt("IDPROFESSOR"));
-                ft.setIdmodalidade(rs.getInt("IDMODALIDADE"));
-                ft.setExercicio(rs.getString("EXERCICIO"));
-                ft.setRepeticoes(rs.getInt("REPETICOES"));
-                aluno.addFicha(ft);
+                while (rsExercicio.next()) {
+                    if (rsExercicio.getInt("IDFICHA") == ft.getCodigo()) {
+
+                    }
+                }
             }
+
+            String sqlPlano = "SELECT * FROM PLANO WHERE CODIGO=?";
+            PreparedStatement psPlano = c.getConexao().prepareStatement(sqlPlano);
+            psPlano.setInt(1, aluno.getCodigo());
+            ResultSet rsPlano = psPlano.executeQuery();
+
+            while (rsPlano.next()) {
+                Plano pl = new Plano();
+                pl.setCodigo(rs.getInt("CODIGO"));
+                pl.setIdaluno(aluno.getCodigo());
+                pl.setTipo(rs.getString("TIPO"));
+                pl.setQuantidade(rs.getInt("QUANTIDADE"));
+                pl.setValormensal(rs.getDouble("VALORMENSAL"));
+                aluno.addPlano(pl);
+            }
+
         }
+
         return aluno;
     }
+
+    public void mostraAlunos() throws Exception {
+        Conexao c = new Conexao();
+
+        String sql = "SELECT * FROM ALUNO ORDER BY NOME";
+        PreparedStatement ps = c.getConexao().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        ArrayList<Aluno> listaAlunos = new ArrayList();
+        while (rs.next()) {
+            Aluno aluno = new Aluno();
+            aluno.setMatricula(rs.getInt("MATRICULA"));
+            aluno.setIdentidade(rs.getString("IDENTIDADE"));
+            aluno.setDatanascimento(rs.getDate("DATANASCIMENTO"));
+            aluno.setPagamentoMensal(rs.getDouble("PAGAMENTOMENSAL"));
+            aluno.setIdusuario(rs.getInt("IDUSUARIO"));
+
+            String sqlFicha = "SELECT * FROM FICHATREINO WHERE IDALUNO=?";
+            String sqlExercicio = "SELECT * FROM EXERCICIO";
+
+            PreparedStatement psFicha = c.getConexao().prepareStatement(sqlFicha);
+            PreparedStatement psExercicio = c.getConexao().prepareStatement(sqlExercicio);
+
+            psFicha.setInt(1, aluno.getCodigo());
+//            psExercicio.setInt(1, ft.getCodigo());
+
+            ResultSet rsFicha = psFicha.executeQuery();
+            ResultSet rsExercicio = psExercicio.executeQuery();
+
+            while (rsFicha.next()) {
+                FichaTreino ft = new FichaTreino();
+                ft.setCodigo(rsFicha.getInt("CODIGO"));
+                while (rsExercicio.next()) {
+                    if (rsExercicio.getInt("IDFICHA") == ft.getCodigo()) {
+
+                    }
+                }
+            }
+
+            String sqlPlano = "SELECT * FROM PLANO WHERE CODIGO=?";
+            PreparedStatement psPlano = c.getConexao().prepareStatement(sqlPlano);
+            psPlano.setInt(1, aluno.getCodigo());
+            ResultSet rsPlano = psPlano.executeQuery();
+
+            while (rsPlano.next()) {
+                Plano pl = new Plano();
+                pl.setCodigo(rs.getInt("CODIGO"));
+                pl.setIdaluno(aluno.getCodigo());
+                pl.setTipo(rs.getString("TIPO"));
+                pl.setQuantidade(rs.getInt("QUANTIDADE"));
+                pl.setValormensal(rs.getDouble("VALORMENSAL"));
+                aluno.addPlano(pl);
+            }
+
+            listaAlunos.add(aluno);
+        }
+        for(int i = 0; i <= listaAlunos.size(); i++){
+            System.out.println("" +listaAlunos.get(i).getCodigo() +"" +listaAlunos.get(i).getNome());
+        }
+    }
+    
 
 }

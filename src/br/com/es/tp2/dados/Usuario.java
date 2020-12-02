@@ -13,16 +13,34 @@ public class Usuario {
     private int codigo;
     private String login;
     private String senha;
-    private int acesso;
+    private int perfil;
+    private String nome;
+    private String cpf;
+    private String endereco;
+    private String telefone;
+    private String email;
 
     public Usuario() {
     }
 
-    public Usuario(int codigo, String login, String senha, int acesso) {
+    public Usuario(int codigo, String login, String senha, int perfil, String nome, String cpf, String endereco, String telefone, String email) {
         this.codigo = codigo;
         this.login = login;
         this.senha = senha;
-        this.acesso = acesso;
+        this.perfil = perfil;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.email = email;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getLogin() {
@@ -41,20 +59,52 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public int getAcesso() {
-        return acesso;
+    public int getPerfil() {
+        return perfil;
     }
 
-    public void setAcesso(int acesso) {
-        this.acesso = acesso;
+    public void setPerfil(int perfil) {
+        this.perfil = perfil;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
-    
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }    
+
 }

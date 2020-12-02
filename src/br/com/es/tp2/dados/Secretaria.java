@@ -9,20 +9,16 @@ package br.com.es.tp2.dados;
  *
  * @author Xtrem
  */
-public class Secretaria {
+public class Secretaria extends Usuario{
     private int codigo;
-    private String nome;
-    private String cpf;
     private int idusuario;
 
     public Secretaria() {
         this.codigo = 0;
     }
 
-    public Secretaria(int codigo, String nome, String cpf, int idusuario) {
+    public Secretaria(int codigo, int idusuario) {
         this.codigo = codigo;
-        this.nome = nome;
-        this.cpf = cpf;
         this.idusuario = idusuario;
     }
 
@@ -32,22 +28,6 @@ public class Secretaria {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public int getIdusuario() {

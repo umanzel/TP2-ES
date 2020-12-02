@@ -13,70 +13,49 @@ import java.util.List;
  *
  * @author Xtrem
  */
-public class Aluno {
-    private int codigo;
-    private String nome;
-    private String cpf;
+public class Aluno extends Usuario{
+    private int matricula;
     private String identidade;
     private Date datanascimento;
-    private int idcartao;
-    private List<FichaTreino> fichatreino;
-    private List<FichaTreino> removerfichatreino;
-    private int matricula;
-    private Double pagamentomensal;
-    private int idtaf;
+    private FichaTreino fichatreino;
+    private List<Plano> planos;
+    private List<Plano> removerPlano;
+    private double pagamentoMensal;
+    private Cartao cartao;
+    private TAF taf;
+    private Anamnese anamnese;
     private int idusuario;
 
-    public Aluno() {
-        this.codigo = 0;
-        this.nome = "";
-        this.cpf = "";
-        this.identidade = "";
-        this.datanascimento = new Date();
-        this.idcartao = 0;
-        this.fichatreino = new ArrayList();
-        this.matricula = 0;
-        this.pagamentomensal = 0.0;
-        this.idtaf = 0;
-        this.idusuario = 0;
-    }
-
-    public Aluno(int codigo, String nome, String cpf, String identidade, Date datanascimento, int idcartao, List<FichaTreino> fichatreino, int matricula, Double pagamentomensal, int idtaf, int idusuario) {
-        this.codigo = codigo;
-        this.nome = nome;
-        this.cpf = cpf;
+    public Aluno(int matricula, String identidade, Date datanascimento, FichaTreino fichatreino, List<Plano> planos, double pagamentoMensal, Cartao cartao, TAF taf, Anamnese anamnese, int idusuario) {
+        this.matricula = matricula;
         this.identidade = identidade;
         this.datanascimento = datanascimento;
-        this.idcartao = idcartao;
         this.fichatreino = fichatreino;
-        this.matricula = matricula;
-        this.pagamentomensal = pagamentomensal;
-        this.idtaf = idtaf;
+        this.planos = planos;
+        this.pagamentoMensal = pagamentoMensal;
+        this.cartao = cartao;
+        this.taf = taf;
+        this.anamnese = anamnese;
         this.idusuario = idusuario;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public Aluno() {
+        this.matricula = 0;
+        this.identidade = "";
+        this.datanascimento = new Date();
+        this.fichatreino = new FichaTreino();
+        this.planos = new ArrayList<>();
+        this.cartao = new Cartao();
+        this.taf = new TAF();
+        this.anamnese = new Anamnese();
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public int getMatricula() {
+        return matricula;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
     }
 
     public String getIdentidade() {
@@ -95,59 +74,71 @@ public class Aluno {
         this.datanascimento = datanascimento;
     }
 
-    public int getIdcartao() {
-        return idcartao;
-    }
-
-    public void setIdcartao(int idcartao) {
-        this.idcartao = idcartao;
-    }
-    
-    public void addFicha(FichaTreino fichaTreino) {
-        this.fichatreino.add(fichaTreino);
-    }
-    
-    public List<FichaTreino> getRemoverFichaTreino() {
-        return removerfichatreino;
-    }
-    
-    public void removeFichaTreino(FichaTreino ficha) {
-        fichatreino.remove(ficha);
-        if (ficha.getCodigo() != 0){
-            removerfichatreino.add(ficha);
-        }
-    }
-
-    public List<FichaTreino> getFichatreino() {
+    public FichaTreino getFichatreino() {
         return fichatreino;
     }
 
-    public void setFichatreino(List<FichaTreino> fichatreino) {
+    public void setFichatreino(FichaTreino fichatreino) {
         this.fichatreino = fichatreino;
     }
 
-    public int getMatricula() {
-        return matricula;
+    public List<Plano> getPlanos() {
+        return planos;
     }
 
-    public void setMatricula(int matricula) {
-        this.matricula = matricula;
+    public void setPlanos(List<Plano> planos) {
+        this.planos = planos;
     }
 
-    public Double getPagamentomensal() {
-        return pagamentomensal;
+    public List<Plano> getRemoverPlano() {
+        return removerPlano;
     }
 
-    public void setPagamentomensal(Double pagamentomensal) {
-        this.pagamentomensal = pagamentomensal;
+    public void setRemoverPlano(List<Plano> removerPlano) {
+        this.removerPlano = removerPlano;
+    }
+    
+    public void addPlano(Plano plano){
+        planos.add(plano);
+    }
+    
+    public void removePlano(Plano plano){
+        if (plano.getCodigo() != 0){
+            removerPlano.add(plano);
+        }
+        planos.remove(plano);
+    }
+    
+    public double getPagamentoMensal(){
+        return this.pagamentoMensal;
+    }
+    
+    public void setPagamentoMensal(double pagamentoMensal){
+        this.pagamentoMensal = pagamentoMensal;
+    }
+    
+    public Cartao getCartao() {
+        return cartao;
     }
 
-    public int getIdtaf() {
-        return idtaf;
+    public void setCartao(Cartao cartao) {
+        this.cartao = cartao;
     }
 
-    public void setIdtaf(int idtaf) {
-        this.idtaf = idtaf;
+    public TAF getTAF() {
+        return taf;
+    }
+
+    public void setTAF(TAF taf) {
+        this.taf = taf;
+    }
+
+    public Anamnese getAnamnese() {
+        return anamnese;
+    }
+
+    public void setAnamnese(Anamnese anamnese) {
+        this.anamnese = anamnese;
     }
 
     public int getIdusuario() {
@@ -157,5 +148,5 @@ public class Aluno {
     public void setIdusuario(int idusuario) {
         this.idusuario = idusuario;
     }
-    
+
 }

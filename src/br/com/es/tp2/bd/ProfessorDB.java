@@ -6,7 +6,6 @@
 package br.com.es.tp2.bd;
 
 import br.com.es.tp2.dados.Professor;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -24,8 +23,7 @@ public class ProfessorDB implements DB<Professor> {
         PreparedStatement ps = c.getConexao().prepareStatement(sql);
         ps.setString(1, professor.getNome());
         ps.setString(2, professor.getCpf());
-        ps.setDate(3, new Date(professor.getDatanascimento().getTime()));
-        ps.setInt(4, professor.getIdusuario());
+        ps.setInt(3, professor.getIdusuario());
         ps.execute();
         c.confirmar();
     }
@@ -37,9 +35,8 @@ public class ProfessorDB implements DB<Professor> {
         PreparedStatement ps = c.getConexao().prepareStatement(sql);
         ps.setString(1, professor.getNome());
         ps.setString(2, professor.getCpf());
-        ps.setDate(3, new Date(professor.getDatanascimento().getTime()));
-        ps.setInt(4, professor.getIdusuario());
-        ps.setInt(5, professor.getCodigo());
+        ps.setInt(3, professor.getIdusuario());
+        ps.setInt(4, professor.getCodigo());
         ps.execute();
         c.confirmar();
     }
@@ -68,7 +65,6 @@ public class ProfessorDB implements DB<Professor> {
             professor.setCodigo(rs.getInt("CODIGO"));
             professor.setNome(rs.getString("NOME"));
             professor.setCpf(rs.getString("CPF"));
-            professor.setDatanascimento(rs.getDate("DATANASCIMENTO"));
             professor.setIdusuario(rs.getInt("IDUSUARIO"));
             listaProfessor.add(professor);
         }
@@ -89,7 +85,6 @@ public class ProfessorDB implements DB<Professor> {
             professor.setCodigo(rs.getInt("CODIGO"));
             professor.setNome(rs.getString("NOME"));
             professor.setCpf(rs.getString("CPF"));
-            professor.setDatanascimento(rs.getDate("DATANASCIMENTO"));
             professor.setIdusuario(rs.getInt("IDUSUARIO"));
         }
 

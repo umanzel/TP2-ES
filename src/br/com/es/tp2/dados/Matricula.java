@@ -5,33 +5,23 @@
  */
 package br.com.es.tp2.dados;
 
-import java.util.List;
-
 /**
  *
  * @author Xtrem
  */
 public class Matricula {
-    private int codigo;
+    private int matricula;
     private int idaluno;
-    private Plano planos;
+    private int idturma;
 
     public Matricula() {
-        this.codigo = 0;
+        this.matricula = 0;
     }
 
-    public Matricula(int codigo, int idaluno, Plano planos) {
-        this.codigo = codigo;
+    public Matricula(int codigo, int idaluno, int idturma) {
+        this.matricula = codigo;
         this.idaluno = idaluno;
-        this.planos = planos;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+        this.idturma = idturma;
     }
 
     public int getIdaluno() {
@@ -42,12 +32,20 @@ public class Matricula {
         this.idaluno = idaluno;
     }
 
-    public Plano getPlanos() {
-        return planos;
+    public int getIdturma() {
+        return idturma;
     }
 
-    public void setPlanos(Plano planos) {
-        this.planos = planos;
+    public void setIdturma(int idturma) {
+        this.idturma = idturma;
+    }
+
+    public int getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
     }
     
 }
