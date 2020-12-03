@@ -6,20 +6,16 @@
 package br.com.es.tp2.main;
 
 import br.com.es.tp2.bd.AlunoDB;
-import br.com.es.tp2.bd.CartaoDB;
-import br.com.es.tp2.bd.MatriculaDB;
 import br.com.es.tp2.bd.MedicoDB;
 import br.com.es.tp2.bd.ProfessorDB;
 import br.com.es.tp2.bd.UsuarioDB;
 import br.com.es.tp2.dados.Aluno;
-import br.com.es.tp2.dados.Cartao;
 import br.com.es.tp2.dados.Exercicio;
 import br.com.es.tp2.dados.FichaTreino;
 import br.com.es.tp2.dados.Matricula;
 import br.com.es.tp2.dados.Medico;
+import br.com.es.tp2.dados.Turma;
 import br.com.es.tp2.dados.Usuario;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -32,6 +28,7 @@ public class Main {
         Login logon = new Login();
         Scanner in = new Scanner(System.in);
         Usuario user = new Usuario();
+        Turma turma = new Turma();
         UsuarioDB usuariodb = new UsuarioDB();
         MedicoDB medicodb = new MedicoDB();
         AlunoDB alunodb = new AlunoDB();
@@ -58,7 +55,10 @@ public class Main {
                     Usuario usuario = new Usuario();
                     System.out.println("Cadastro de usuario:\n");
                     System.out.print("Login: ");
-                    usuario.setLogin(in.nextLine());
+                    String logintemp = in.nextLine();                    
+                    logintemp = in.nextLine();
+
+                    usuario.setLogin(logintemp);
                     System.out.print("Senha: ");
                     usuario.setSenha(in.nextLine());
                     System.out.print("Nome: ");
@@ -124,6 +124,14 @@ public class Main {
                         MenuTurma();
                         System.out.print("\nSelecionar turma: ");
                         matricula.setIdturma(in.nextInt());
+                        Clear();
+                        System.out.println("Verificar lotação...");
+                        if(turma.verificarDisponibilidade()){
+                            System.out.println("Matriculado com sucesso!");
+                        }
+                        else{
+                            System.out.println("Turma Cheia!!!");
+                        }
                         System.out.println("Deseja matricular em outra turma?\n\n1. Sim\n0. Não");
                         loop = in.nextInt();
                     }

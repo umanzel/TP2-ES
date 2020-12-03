@@ -26,6 +26,9 @@ public class Turma {
         this.hora = hora;
     }
 
+    public Turma() {
+    }
+
     public String getIdTurma() {
         return idTurma;
     }
