@@ -77,9 +77,12 @@ public class Main {
                     if(perfil == 1){
                         Aluno aluno = new Aluno();
                         System.out.print("Identidade: ");
-                        aluno.setIdentidade(in.nextLine());
+                        String id = in.nextLine();
+                        id = in.nextLine();
+                        aluno.setIdentidade(id);
                         alunodb.inserir(aluno);
                         usuariodb.inserir(usuario);
+                        System.out.println("Aluno Cadastrado");
                     }
                     else if(perfil == 4){
                         Medico medico = new Medico();

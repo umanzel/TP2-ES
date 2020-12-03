@@ -99,4 +99,11 @@ create table secretaria (
 	idusuario integer
 );
 
-insert into usuario (login, senha, perfil, nome, cpf, endereco, telefone, email) values ('luan', '1111', 2, 'Luan Ferreira', '111.111.111-11', 'Av, Amazonas, 7675', '(11) 11111-1111', 'luanferreira92@yahoo.com.br');
+insert into usuario (login, senha, perfil, nome, cpf, endereco, telefone, email) 
+values ('luan', '1111', 1, 'Luan Ferreira', '111.111.111-11', 'Av, Amazonas, 7675', '(11) 11111-1111', 'luanferreira92@yahoo.com.br');
+insert into usuario (login, senha, perfil, nome, cpf, endereco, telefone, email) 
+values ('secr', '1111', 2, 'Luan Ferreira', '111.111.111-11', 'Av, Amazonas, 7675', '(11) 11111-1111', 'luanferreira92@yahoo.com.br');
+insert into usuario (login, senha, perfil, nome, cpf, endereco, telefone, email) 
+values ('prof', '1111', 3, 'Luan Ferreira', '111.111.111-11', 'Av, Amazonas, 7675', '(11) 11111-1111', 'luanferreira92@yahoo.com.br');
+insert into usuario (login, senha, perfil, nome, cpf, endereco, telefone, email) 
+values ('medc', '1111', 4, 'Luan Ferreira', '111.111.111-11', 'Av, Amazonas, 7675', '(11) 11111-1111', 'luanferreira92@yahoo.com.br');
