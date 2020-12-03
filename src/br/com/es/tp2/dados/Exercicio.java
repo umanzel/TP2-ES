@@ -9,7 +9,7 @@ package br.com.es.tp2.dados;
  *
  * @author Xtrem
  */
-class Exercicio {
+public class Exercicio {
     private String exercicio;
     private int repeticoes;
 

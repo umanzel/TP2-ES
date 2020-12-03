@@ -13,6 +13,7 @@ import br.com.es.tp2.bd.ProfessorDB;
 import br.com.es.tp2.bd.UsuarioDB;
 import br.com.es.tp2.dados.Aluno;
 import br.com.es.tp2.dados.Cartao;
+import br.com.es.tp2.dados.Exercicio;
 import br.com.es.tp2.dados.FichaTreino;
 import br.com.es.tp2.dados.Matricula;
 import br.com.es.tp2.dados.Medico;
@@ -35,6 +36,7 @@ public class Main {
         MedicoDB medicodb = new MedicoDB();
         AlunoDB alunodb = new AlunoDB();
         ProfessorDB professordb = new ProfessorDB();
+        Matricula matricula = new Matricula();
         int perfil = 0;
         int opcao = 99;
         int loop = 99;
@@ -63,7 +65,7 @@ public class Main {
                     usuario.setNome(in.nextLine());
                     System.out.print("CPF: ");
                     usuario.setCpf(in.nextLine());
-                    System.out.println("Endereço: ");
+                    System.out.print("Endereço: ");
                     usuario.setEndereco(in.nextLine());
                     System.out.print("Telefone: ");
                     usuario.setTelefone(in.nextLine());
@@ -81,6 +83,7 @@ public class Main {
                     }
                     else if(perfil == 4){
                         Medico medico = new Medico();
+                        System.out.print("CRM: ");
                         medico.setCRM(in.nextLine());
                         medicodb.inserir(medico);
                         usuariodb.inserir(usuario);
@@ -95,7 +98,35 @@ public class Main {
                 MenuProfessor();
                 opcao = in.nextInt();
                 if(opcao == 1){
+                    int idAluno = 0;
                     alunodb.mostraAlunos();
+                    Exercicio exercicio = new Exercicio();
+                    FichaTreino ft = new FichaTreino();
+                    System.out.print("\nSelecione o aluno: ");
+                    idAluno = in.nextInt();
+                    while(loop != 0){
+                        Clear();
+                        System.out.println("Cadastrar novo exercicio:\n");
+                        String ex = in.nextLine();                        
+                        ex = in.nextLine();
+
+                        exercicio.setExercicio(ex);
+                        System.out.print("Repetições: ");
+                        exercicio.setRepeticoes(in.nextInt());
+                        ft.addExercicio(exercicio);
+                        System.out.println("\n\nDeseja cadastrar novo exercicio:\n1. Sim\n0. Não");
+                        loop = in.nextInt();
+                    }
+                    loop = 99;
+                    while(loop != 0){
+                        Clear();
+                        System.out.println("Matricular na turma:\n");
+                        MenuTurma();
+                        System.out.print("\nSelecionar turma: ");
+                        matricula.setIdturma(in.nextInt());
+                        System.out.println("Deseja matricular em outra turma?\n\n1. Sim\n0. Não");
+                        loop = in.nextInt();
+                    }
                 }
             }
             else if(logon.Logar(user) == 4){
@@ -118,7 +149,8 @@ public class Main {
     
     private static void MenuSecretaria(){
         Clear();
-        System.out.println("1. Matricular Aluno");
+        System.out.println("1. Cadastrar Aluno");
+        System.out.println("2. Matricular Aluno");
         System.out.println("0. Sair");
     }
     private static void MenuProfessor() {
@@ -163,24 +195,42 @@ public class Main {
     
     private static void MenuTurma(){
         Clear();
-        System.out.println("1. 06:30 - Crossfit");
-        System.out.println("2. 07:00 - Spinning");
-        System.out.println("3. 08:00 - Natação");
-        System.out.println("4. 08:30 - Crossfit");
-        System.out.println("5. 09:00 - Ritmos");
-        System.out.println("6. 10:00 - Natação");
-        System.out.println("7. 10:15 - Crossfit");
-        System.out.println("8. 12:00 - Spinning");
-        System.out.println("9. 12:00 - Crossfit");
-        System.out.println("10. 16:00 - Spinning");
-        System.out.println("11. 17:00 - Ritmos");
-        System.out.println("12. 17:00 - Natação");
-        System.out.println("13. 18:00 - Ritmos");
-        System.out.println("14. 18:00 - Crossfit");
-        System.out.println("15. 19:00 - Natação");
-        System.out.println("16. 19:00 - Ritmos");
-        System.out.println("17. 20:00 - Natação");
-        System.out.println("18. 20:00 - Crossfit");
+        System.out.println("1. C0630SQS - 06:30 - Crossfit");
+        System.out.println("2. C0630TQS - 06:30 - Crossfit");
+        System.out.println("3. S0700SQS - 07:00 - Spinning");
+        System.out.println("4. S0700TQS - 07:00 - Spinning");
+        System.out.println("5. N0800TQ - 08:00 - Natação");
+        System.out.println("6. N0800SQS - 08:00 - Natação");
+        System.out.println("7. C0830SQS - 08:30 - Crossfit");
+        System.out.println("8. C0830TQS - 08:30 - Crossfit");
+        System.out.println("9. R0900SQS - 09:00 - Ritmos");
+        System.out.println("10. R0900TQS - 09:00 - Ritmos");
+        System.out.println("11. N1000TQ - 10:00 - Natação");
+        System.out.println("12. N1000SQS - 10:00 - Natação");
+        System.out.println("13. C1015SQS - 10:15 - Crossfit");
+        System.out.println("14. C1015TQS - 10:15 - Crossfit");
+        System.out.println("15. S1200SQS - 12:00 - Spinning");
+        System.out.println("16. S1200TQS - 12:00 - Spinning");
+        System.out.println("17. C1200SQS - 12:00 - Crossfit");
+        System.out.println("18. C1200TQS - 12:00 - Crossfit");
+        System.out.println("19. S1600SQS - 16:00 - Spinning");
+        System.out.println("20. S1600TQS - 16:00 - Spinning");
+        System.out.println("21. R1700SQS - 17:00 - Ritmos");
+        System.out.println("22. R1700TQS - 17:00 - Ritmos");
+        System.out.println("23. N1700TQ - 17:00 - Natação");
+        System.out.println("24. N1700SQS - 17:00 - Natação");
+        System.out.println("25. R1800SQS - 18:00 - Ritmos");
+        System.out.println("26. R1800TQS - 18:00 - Ritmos");
+        System.out.println("27. C1800SQS - 18:00 - Crossfit");
+        System.out.println("28. C1800TQS - 18:00 - Crossfit");
+        System.out.println("29. N1900TQ - 19:00 - Natação");
+        System.out.println("30. N1900SQS - 19:00 - Natação");
+        System.out.println("31. R1900SQS - 19:00 - Ritmos");
+        System.out.println("32. R1900TQS - 19:00 - Ritmos");
+        System.out.println("33. N2000TQ - 20:00 - Natação");
+        System.out.println("34. N2000SQS - 20:00 - Natação");
+        System.out.println("35. C2000SQS - 20:00 - Crossfit");
+        System.out.println("36. C2000TQS - 20:00 - Crossfit");
         System.out.println("99. Any - Musculação");
        
         

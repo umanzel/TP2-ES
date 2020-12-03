@@ -8,6 +8,7 @@ package br.com.es.tp2.bd;
 import br.com.es.tp2.dados.Aluno;
 import br.com.es.tp2.dados.FichaTreino;
 import br.com.es.tp2.dados.Plano;
+import br.com.es.tp2.dados.Usuario;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,8 +35,10 @@ public class AlunoDB implements DB<Aluno> {
         ps.execute();
 
         ResultSet rs = ps.getGeneratedKeys();
-        rs.next();
-        int idAluno = rs.getInt(1);
+        int idAluno = 0;
+        if(rs.next()){
+            idAluno = rs.getInt(1);
+        }
 
         for (Plano pl : aluno.getPlanos()) {
             sql = "INSERT INTO PLANO (IDALUNO, TIPO, QUANTIDADE, VALORMENSAL) VALUES (?, ?, ?, ?)";
@@ -237,19 +240,22 @@ public class AlunoDB implements DB<Aluno> {
     public void mostraAlunos() throws Exception {
         Conexao c = new Conexao();
 
-        String sql = "SELECT * FROM ALUNO ORDER BY NOME";
+        String sql = "SELECT * FROM USUARIO US INNER JOIN ALUNO AL ON AL.MATRICULA = US.CODIGO ORDER BY NOME";
         PreparedStatement ps = c.getConexao().prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
         ArrayList<Aluno> listaAlunos = new ArrayList();
+        ArrayList<Usuario> listaUsuarios = new ArrayList();
         while (rs.next()) {
             Aluno aluno = new Aluno();
+            Usuario user = new Usuario();
             aluno.setMatricula(rs.getInt("MATRICULA"));
             aluno.setIdentidade(rs.getString("IDENTIDADE"));
             aluno.setDatanascimento(rs.getDate("DATANASCIMENTO"));
             aluno.setPagamentoMensal(rs.getDouble("PAGAMENTOMENSAL"));
             aluno.setIdusuario(rs.getInt("IDUSUARIO"));
-
+            user.setNome(rs.getString("NOME"));
+            
             String sqlFicha = "SELECT * FROM FICHATREINO WHERE IDALUNO=?";
             String sqlExercicio = "SELECT * FROM EXERCICIO";
 
@@ -288,9 +294,10 @@ public class AlunoDB implements DB<Aluno> {
             }
 
             listaAlunos.add(aluno);
+            listaUsuarios.add(user);
         }
-        for(int i = 0; i <= listaAlunos.size(); i++){
-            System.out.println("" +listaAlunos.get(i).getCodigo() +"" +listaAlunos.get(i).getNome());
+        for(int i = 0; i < listaAlunos.size(); i++){
+            System.out.println("" +listaAlunos.get(i).getCodigo() +" - " +listaUsuarios.get(i).getNome());
         }
     }
     
